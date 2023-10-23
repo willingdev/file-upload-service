@@ -4,7 +4,7 @@ demonstration to implement upload file service with Oauth2, deploy by using dock
 
 ## Overview
 
-    ![Overview](overview.png)
+![Overview](overview.png)
 
 ## Quick start
 
