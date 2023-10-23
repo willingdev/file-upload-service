@@ -1,0 +1,36 @@
+plugins {
+	id 'org.springframework.boot' version '3.1.0'
+	id 'io.spring.dependency-management' version '1.1.0'
+	id 'java'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '17'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	testImplementation('org.springframework.boot:spring-boot-starter-test')
+}
+
+task fatJar(type: Jar) {
+
+	manifest {
+		attributes 'Main-Class': 'com.example.uploadingfiles.UploadingFilesApplication'
+	}
+
+	archiveBaseName = "${rootProject.name}"
+	tasks.withType(Jar){
+		duplicatesStrategy = DuplicatesStrategy.INCLUDE
+	}
+	from { configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
+	with jar
+}
+test {
+	useJUnitPlatform()
+}
