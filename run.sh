@@ -1,6 +1,12 @@
 #!/bin/bash
 
+echo "Building file-upload-api..."
 
+cd file-upload-api
+./gradlew bootJar
+docker build . -t file-upload-api
+cd ..
+echo "Done building file-upload-api"
 
 echo "Starting kong-database..."
 
@@ -61,7 +67,7 @@ curl --location 'http://localhost:8001/consumers' \
     "custom_id": "cpn-custom-id"
  }'
 
- curl --location 'http://localhost:8001/consumers/cpn-user/oauth2' \
+curl --location 'http://localhost:8001/consumers/cpn-user/oauth2' \
 --header 'Content-Type: application/json' \
 --data '{
     "name": "cpn-user",

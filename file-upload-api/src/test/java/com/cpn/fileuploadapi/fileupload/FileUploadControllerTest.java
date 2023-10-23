@@ -1,5 +1,6 @@
 package com.cpn.fileuploadapi.fileupload;
 
+import com.cpn.fileuploadapi.email.EmailService;
 import com.cpn.fileuploadapi.storage.StorageService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,9 @@ public class FileUploadControllerTest {
 
     @MockBean
     private StorageService storageService;
+
+    @MockBean
+    private EmailService emailService;
 
     @LocalServerPort
     private int port;
