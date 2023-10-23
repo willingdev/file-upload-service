@@ -25,7 +25,7 @@ public class FileUploadController {
         storageService.store(file);
         CompletableFuture.runAsync(()->{
             String email = headers.get("x-authenticated-userid");
-            emailService.sendSimpleMessage(email,"Uploaded File Status","Test body");
+            emailService.sendSimpleMessage(email,"Uploaded File Status",file.getName()+  " has beed uploaded.");
         });
           return ResponseEntity.ok(new FileUploadResponse());
     }
