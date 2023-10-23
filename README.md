@@ -4,7 +4,7 @@ demonstration to implement upload file service with Oauth2, deploy by using dock
 
 ## Overview
 This solution is used Kong for authentication and authorization by using Oauth2 plugin.
-And alos use Kong for doing the API Gateway.
+And also use Kong for doing the API Gateway.
 
 The file upload api is implemented by Spring Boot.
 
