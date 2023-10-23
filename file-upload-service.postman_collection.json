@@ -1,0 +1,170 @@
+{
+	"info": {
+		"_postman_id": "74b79632-32e9-4d6b-98c7-2a07deb5ff36",
+		"name": "file-upload-service",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "7847273"
+	},
+	"item": [
+		{
+			"name": "https://localhost/api/oauth2/authorize",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"const redirectUri = jsonData.redirect_uri",
+							"const strArray = redirectUri.split(\"=\")",
+							"pm.globals.set(\"authorizeCode\", strArray[1]);",
+							" "
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"client_id\":\"j7TtRUw0Px127B47hwe5YYZaYTryHJoV\",\n    \"provision_key\":\"9lP1AUbJoqT3fdbcn08Ka9ROc2Nu3EQU\",\n    \"authenticated_userid\":\"a.pengsupan@gmail.com\",\n    \"scope\":\"cpn_user\",\n    \"response_type\":\"code\",\n    \"redirect_url\":\"https://cpn-supoer-app.store/callback\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost/api/oauth2/authorize",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"oauth2",
+						"authorize"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost/api/oauth2/token",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"pm.globals.set(\"accessToken\", jsonData.access_token);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"grant_type\": \"authorization_code\",\n    \"code\": \"{{authorizeCode}}\",\n    \"client_id\": \"j7TtRUw0Px127B47hwe5YYZaYTryHJoV\",\n    \"client_secret\": \"sBNS4KQiFnM22hCZkBgWIdgDwg23cOqA\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost/api/oauth2/token",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"oauth2",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost/api/upload",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{accessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/Users/phanlop/Desktop/Screenshot 2566-10-22 at 22.29.46.png"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://localhost/api/upload",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"upload"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"value": "",
+			"type": "string"
+		}
+	]
+}
